@@ -1,3 +1,0 @@
-# swtomas.github.io
-
-Обед
