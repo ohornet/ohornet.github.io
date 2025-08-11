@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="https://swtomas.lol/pic/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@noplusbot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -69,7 +69,7 @@
                 <p class="text-5xl">🤖</p>
                 <h3 class="mt-4 text-xl font-bold">Никаких обязательных подписок</h3>
                 <p class="mt-2 text-gray-400">
-                    Наш бот работает для вас без необходимости подписываться на сторонние каналы.
+                    Бот работает для вас без необходимости подписываться на сторонние каналы.
                 </p>
             </div>
             <div class="p-6 bg-white/5 rounded-2xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 shadow-lg">
@@ -106,19 +106,19 @@
                     let colorClass = 'bg-gray-500';
                     let textClass = 'text-gray-400';
                     let statusMessage = 'Неизвестно';
-                    if (data && typeof data.state === 'number') {
+                     if (data && typeof data.state === 'string') {
                         switch (data.state) {
-                            case 1:
+                            case "1":
                                 colorClass = 'bg-green-500';
                                 textClass = 'text-green-400';
                                 statusMessage = 'Активен';
                                 break;
-                            case 0:
+                            case "0":
                                 colorClass = 'bg-red-500';
                                 textClass = 'text-red-400';
                                 statusMessage = 'Неактивен';
                                 break;
-                            case 2:
+                            case "2":
                                 colorClass = 'bg-yellow-500';
                                 textClass = 'text-yellow-400';
                                 statusMessage = 'В разработке';
