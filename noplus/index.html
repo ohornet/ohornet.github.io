@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://swtomas.lol/pic/logo.png">
+    <title>@noplusbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #2f085c);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .gradient-text {
+            background-image: linear-gradient(45deg, #60a5fa, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+<body class="text-white flex items-center justify-center min-h-screen p-4">
+    <main class="max-w-3xl w-full text-center space-y-12 p-8 md:p-12 rounded-3xl bg-gray-950/70 backdrop-blur-sm border border-gray-800 shadow-2xl">
+        <div class="flex items-center justify-center space-x-2">
+            <span id="status-circle" class="w-4 h-4 rounded-full" style="animation: pulse 2s infinite;"></span>
+            <p class="text-lg md:text-xl font-medium" id="status-text">Состояние: Загрузка...</p>
+        </div>
+        <header>
+            <h1 class="text-5xl md:text-6xl font-extrabold gradient-text leading-tight drop-shadow-xl">
+                @noplusbot
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-300 font-medium">
+                Ваш бесплатный и безлимитный доступ к нейросетям
+            </p>
+        </header>
+        <section class="grid md:grid-cols-3 gap-8">
+            <div class="p-6 bg-white/5 rounded-2xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 shadow-lg">
+                <p class="text-5xl">✨</p>
+                <h3 class="mt-4 text-xl font-bold">Бесплатно навсегда</h3>
+                <p class="mt-2 text-gray-400">
+                    Наслаждайтесь всеми возможностями без скрытых платежей и подписок.
+                </p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-2xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 shadow-lg">
+                <p class="text-5xl">🤖</p>
+                <h3 class="mt-4 text-xl font-bold">Никаких обязательных подписок</h3>
+                <p class="mt-2 text-gray-400">
+                    Наш бот работает для вас без необходимости подписываться на сторонние каналы.
+                </p>
+            </div>
+            <div class="p-6 bg-white/5 rounded-2xl border border-gray-700 transform transition-transform duration-300 hover:scale-105 shadow-lg">
+                <p class="text-5xl">♾️</p>
+                <h3 class="mt-4 text-xl font-bold">Неограниченное количество запросов</h3>
+                <p class="mt-2 text-gray-400">
+                    Используйте нейросети столько, сколько вам нужно, без ограничений.
+                </p>
+            </div>
+        </section>
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-4">
+            <a href="https://t.me/noplusbot"
+               class="px-8 py-4 text-lg font-bold rounded-full bg-gradient-to-r from-sky-500 to-purple-600 text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                👉 Попробовать
+            </a>
+            <a href="https://swtomas.lol/noplus/web"
+               class="px-8 py-4 text-lg font-bold rounded-full border-2 border-gray-600 text-gray-300 bg-white/5 shadow-lg transition-all duration-300 hover:scale-105 hover:border-sky-500 hover:text-sky-400">
+                ✨ Попробовать в web
+            </a>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusCircle = document.getElementById('status-circle');
+            const statusText = document.getElementById('status-text');
+            const apiUrl = 'https://api.swtomas.lol/check';
+            async function fetchStatus() {
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`Ошибка HTTP: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    let colorClass = 'bg-gray-500';
+                    let textClass = 'text-gray-400';
+                    let statusMessage = 'Неизвестно';
+                    if (data && typeof data.state === 'number') {
+                        switch (data.state) {
+                            case 1:
+                                colorClass = 'bg-green-500';
+                                textClass = 'text-green-400';
+                                statusMessage = 'Активен';
+                                break;
+                            case 0:
+                                colorClass = 'bg-red-500';
+                                textClass = 'text-red-400';
+                                statusMessage = 'Неактивен';
+                                break;
+                            case 2:
+                                colorClass = 'bg-yellow-500';
+                                textClass = 'text-yellow-400';
+                                statusMessage = 'В разработке';
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    statusCircle.className = '';
+                    statusCircle.classList.add('w-4', 'h-4', 'rounded-full', colorClass);
+                    statusCircle.style.animation = 'pulse 2s infinite';
+                    statusText.className = '';
+                    statusText.classList.add('text-lg', 'md:text-xl', 'font-medium', 'text-white');
+                    statusText.innerHTML = `Состояние: <span class="${textClass}">${statusMessage}</span>`;
+
+                } catch (error) {
+                    console.error('Ошибка при получении статуса:', error);
+                    statusCircle.className = 'w-4 h-4 rounded-full bg-gray-500';
+                    statusText.innerHTML = `Состояние: <span class="text-gray-400">Неизвестно</span>`;
+                }
+            }
+            fetchStatus();
+            setInterval(fetchStatus, 30000);
+        });
+    </script>
+</body>
+</html>
