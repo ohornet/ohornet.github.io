@@ -141,13 +141,12 @@
             let messages = [];
             let isLoading = false;
             const models = [
+                { name: 'ChatGPT 5 Nano', value: 'gpt-5-nano' },
                 { name: 'ChatGPT 4.1', value: 'openai-large' },
-                { name: 'ChatGPT 4.1 Nano', value: 'gpt-4.1-nano' },
                 { name: 'ChatGPT 4o mini', value: 'openai' },
-                { name: 'xAi Grok 3 Mini', value: 'grok-3-mini' },
-                { name: 'Mistral 3.1', value: 'mistral' },
+                { name: 'xAi Grok 3 Mini', value: 'grok-3-mini' }
             ];
-            let currentModel = models[1]; // Default to ChatGPT 4.1 Nano
+            let currentModel = models[0];
 
             // --- THEME MANAGEMENT ---
             const defaultThemes = {
